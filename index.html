@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f7fb" />
+  <title>KasKampus — Catatan Keuangan Mahasiswa</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="loginScreen" class="login-screen">
+    <section class="login-card">
+      <a class="brand" href="#" aria-label="KasKampus"><span class="brand-icon">★</span><span>Kash<span class="brand-accent">Kampus</span></span></a>
+      <div class="login-art" aria-hidden="true"><span>✦</span><div class="art-card"><small>SALDO TERKELOLA</small><strong>Lebih aman,<br />lebih terencana.</strong><i>↗</i></div></div>
+      <div class="login-copy"><p class="eyebrow">RUANG KEUANGAN KELAS</p><h1>Atur uang kelasmu,<br />kejar tujuan.</h1><p>Catat pemasukan dan pengeluaran kuliah dengan cara yang simpel.</p></div>
+      <form id="loginForm" class="login-form">
+        <label for="username">Nama pengguna</label>
+        <input id="username" name="username" type="text" autocomplete="username" placeholder="Masukkan nama pengguna" required />
+        <label for="password">Kata sandi</label>
+        <div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required /><button type="button" id="togglePassword" class="toggle-password" aria-label="Tampilkan kata sandi">Lihat</button></div>
+        <p id="loginError" class="form-error" role="alert"></p>
+        <button class="button button-primary login-button" type="submit">Masuk ke akun <span>→</span></button>
+      </form>
+      <p class="login-foot">Dibuat untuk keseharian mahasiswa <span></span></p>
+    </section>
+  </main>
+
+  <div id="appScreen" class="app-shell" hidden>
+    <aside class="sidebar">
+      <a class="brand sidebar-brand" href="#"><span class="brand-icon">K</span><span>Kas<span class="brand-accent">Kampus</span></span></a>
+      <p class="nav-label">MENU UTAMA</p>
+      <a href="#dashboard" class="nav-link active"><span>▦</span> Ringkasan</a>
+      <a href="#transactions" class="nav-link"><span>↕</span> Transaksi</a>
+      <div class="sidebar-tip"><span class="tip-icon">✦</span><strong>Tips hemat hari ini</strong><p>Catat pengeluaranmu sesegera mungkin agar tidak ada yang terlewat.</p></div>
+      <div class="sidebar-profile"><div class="avatar">★</div><div><strong id="sidebarName">Mahasiswa</strong><small>Catatan pribadimu</small></div><button id="logoutButton" class="logout-button" title="Keluar" aria-label="Keluar">↪</button></div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar"><div><p class="eyebrow">RUANG KEUANGAN KELASMU</p><h1>Hai, <span id="greetingName">Mahasiswa</span> <span class="wave">👋</span></h1><p class="subtitle">Yuk, cek kondisi keuangan kelas hari ini.</p></div><div class="topbar-actions"><span class="today-chip"><span>◷</span> <span id="todayLabel"></span></span><button id="topLogoutButton" class="button button-light">Keluar <span>↪</span></button></div></header>
+
+      <section class="summary-grid" aria-label="Ringkasan keuangan">
+        <article class="summary-card balance-card"><div class="summary-top"><span class="summary-icon">◈</span><span class="summary-period">TOTAL SALDO</span></div><p>Saldo saat ini</p><h2 id="balanceValue">Rp0</h2><div class="balance-note"><span>✦</span> Uangmu, tercatat rapi</div><div class="balance-decoration">◌</div></article>
+        <article class="summary-card"><div class="summary-top"><span class="summary-icon income-icon">↗</span><span class="summary-period">BULAN INI</span></div><p>Total pemasukan</p><h2 id="incomeValue">Rp0</h2><div class="summary-foot"><span class="trend-up">↗</span> Uang masuk bulan ini</div></article>
+        <article class="summary-card"><div class="summary-top"><span class="summary-icon expense-icon">↘</span><span class="summary-period">BULAN INI</span></div><p>Total pengeluaran</p><h2 id="expenseValue">Rp0</h2><div class="summary-foot"><span class="trend-down">↘</span> Uang keluar bulan ini</div></article>
+      </section>
+
+      <section class="content-grid" id="transactions">
+        <article class="panel transaction-panel"><div class="panel-heading"><div><p class="eyebrow">RIWAYAT KEUANGAN</p><h2>Transaksi terbaru</h2></div><button id="exportButton" class="button button-light export-button">⇩ <span>Ekspor</span></button></div>
+          <div class="table-tools"><div class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Cari transaksi..." aria-label="Cari transaksi" /></div><select id="filterSelect" aria-label="Filter transaksi"><option value="all">Semua transaksi</option><option value="income">Pemasukan</option><option value="expense">Pengeluaran</option></select></div>
+          <div class="table-wrap"><table><thead><tr><th>TRANSAKSI</th><th>KATEGORI</th><th>TANGGAL</th><th>JUMLAH</th><th></th></tr></thead><tbody id="transactionList"></tbody></table><div id="emptyState" class="empty-state" hidden><span>🧾</span><strong>Belum ada transaksi</strong><p>Tambahkan transaksi pertamamu di panel sebelah.</p></div></div>
+          <p class="table-note">Data tersimpan otomatis di browser ini.</p>
+        </article>
+
+        <aside class="panel add-panel"><div class="panel-heading"><div><p class="eyebrow">CATAT SEKARANG</p><h2>Tambah transaksi</h2></div><span class="add-heading-icon">＋</span></div>
+          <form id="transactionForm" class="transaction-form">
+            <label for="description">Nama dan Transaksi</label><input id="description" type="text" maxlength="60" placeholder="-" required />
+            <div class="form-row"><div><label for="type">Jenis</label><select id="type"><option value="expense">Pengeluaran</option><option value="income">Pemasukan</option></select></div><div><label for="category">Kategori</label><select id="category"></select></div></div>
+            <label for="amount">Jumlah (Rp)</label><div class="amount-input"><span>Rp</span><input id="amount" type="number" min="1" step="1" placeholder="0" required /></div>
+            <label for="date">Tanggal</label><input id="date" type="date" required />
+            <button class="button button-primary submit-button" type="submit">＋ <span>Simpan transaksi</span></button>
+          </form>
+          <div class="privacy-note"><span>🔒</span><p>Catatanmu disimpan privat di perangkat ini.</p></div>
+        </aside>
+      </section>
+      <footer class="app-footer">KasKampus <span>·</span> Catat kecil, berdampak besar.</footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
